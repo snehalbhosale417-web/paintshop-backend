@@ -11,15 +11,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Serve images (optional, safe to keep)
-app.use("/images", express.static(path.join(__dirname, "../frontend/images")));
-
-// ✅ MongoDB Atlas Connection (IMPORTANT)
+// MongoDB Atlas Connection
 mongoose.connect(process.env.MONGO_URL)
   .then(() => console.log("✅ MongoDB Atlas Connected"))
   .catch(err => console.log("❌ DB Error:", err));
 
-// ✅ FIXED ROUTES (NO FOLDERS)
+// Routes (NO folders)
 const productRoutes = require("./products");
 const orderRoutes = require("./orders");
 
@@ -31,7 +28,7 @@ app.get("/", (req, res) => {
   res.send("Server Working ✅");
 });
 
-// ✅ Render Port Fix
+// Port fix for Render
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
