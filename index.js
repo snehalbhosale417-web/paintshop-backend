@@ -14,8 +14,8 @@ app.use(express.json());
 // Serve images
 app.use("/images", express.static(path.join(__dirname, "../frontend/images")));
 
-// ✅ CONNECT TO MONGODB ATLAS (CLOUD)
-mongoose.connect("mongodb+srv://snehalbhosale417_db_user:Snehal2026Shop@cluster0.neuexg7.mongodb.net/paintshop")
+// ✅ CONNECT TO MONGODB ATLAS (using environment variable)
+mongoose.connect(process.env.MONGO_URL)
   .then(() => console.log("✅ MongoDB Atlas Connected"))
   .catch(err => console.log("❌ DB Error:", err));
 
@@ -31,9 +31,9 @@ app.get("/", (req, res) => {
   res.send("Server Working ✅");
 });
 
-// Server start
-const PORT = 3000;
+// ✅ Use Render port
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
